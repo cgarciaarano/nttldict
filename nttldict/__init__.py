@@ -17,7 +17,7 @@ class NaiveTTLDict:
     def backend(self):
         yield self._backend
 
-    def __iter__(self):        
+    def __iter__(self):
         with self.backend as cache:
             self._clear_expired(cache)
             # We have to evaluate full __iter__ before closing the shelve!
@@ -73,12 +73,12 @@ class NaiveTTLDict:
     def items(self):
         with self.backend as cache:
             self._clear_expired(cache)
-            return list(map(lambda x: (x[0], x[1]['data']), cache.items()))
+            return list(map(lambda x: (x[0], x[1]["data"]), cache.items()))
 
     def values(self):
         with self.backend as cache:
             self._clear_expired(cache)
-            return list(map(lambda x: x['data'], cache.values()))
+            return list(map(lambda x: x["data"], cache.values()))
 
     def _clear_expired(self, cache, key=None):
         def is_expired(data):
