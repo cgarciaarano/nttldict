@@ -37,4 +37,4 @@ It contains some gotchas:
 
 ## How is this useful?
 
-You can store arbitrary objects (anything that can be `pickle`d). Current use cas is to store different kind of credentials in CLI tools.
+You can store arbitrary objects (anything that `pickle` can handle). Current use case is to store different kind of credentials in CLI tools.
