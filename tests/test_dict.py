@@ -173,6 +173,10 @@ class TestCase:
         instance.clear()
         assert len(instance) == 0
 
+    def test_update(self, instance):
+        with pytest.raises(NotImplementedError):
+            instance.update(dict())
+
     def test_objects(self, instance):
         d = dict(foo="bar", b=2)
         instance["a"] = range(10)

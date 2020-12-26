@@ -89,7 +89,7 @@ class NaiveTTLDict:
         with self.backend as cache:
             return cache.clear()
 
-    def update(self):
+    def update(self, other):
         raise NotImplementedError
 
     def _clear_expired(self, cache, key=None):
