@@ -111,6 +111,27 @@ class TestCase:
         sleep()
         assert len(instance) == 0
 
+    def test_keys(self, instance):
+        assert len(instance.keys()) == 0
+
+        for k in range(10):
+            # Keys must be str as values!
+            instance.set(str(k), k, ttl=10)
+
+        assert len(instance) == 10
+        assert len(instance.keys()) == 10
+
+        for v in instance.keys():
+            assert str(instance[v]) == v
+
+        # Remove one key
+        instance.pop("0")
+        assert len(instance.keys()) == 9
+        for v in instance.keys():
+            assert str(instance[v]) == v
+
+        instance.clear()
+
     def test_values(self, instance):
         assert len(instance.values()) == 0
 
@@ -141,6 +162,15 @@ class TestCase:
             assert k == str(v)
 
         sleep()
+        assert len(instance) == 0
+
+    def test_clear(self, instance):
+        for k in range(10):
+            # Keys must be str as values!
+            instance.set(str(k), k, ttl=10000)
+
+        assert len(instance) == 10
+        instance.clear()
         assert len(instance) == 0
 
     def test_objects(self, instance):

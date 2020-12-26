@@ -70,6 +70,11 @@ class NaiveTTLDict:
             pass
         return value
 
+    def keys(self):
+        with self.backend as cache:
+            self._clear_expired(cache)
+            return list(cache.keys())
+
     def items(self):
         with self.backend as cache:
             self._clear_expired(cache)
@@ -79,6 +84,13 @@ class NaiveTTLDict:
         with self.backend as cache:
             self._clear_expired(cache)
             return list(map(lambda x: x["data"], cache.values()))
+
+    def clear(self):
+        with self.backend as cache:
+            return cache.clear()
+
+    def update(self):
+        raise NotImplementedError
 
     def _clear_expired(self, cache, key=None):
         def is_expired(data):
