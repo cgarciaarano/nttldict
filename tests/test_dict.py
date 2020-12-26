@@ -9,7 +9,7 @@ from nttldict import NaiveTTLDict, NaiveTTLDictDisk
 DEFAULT_TTL = 0.03
 
 ttldict = NaiveTTLDict(default_ttl=DEFAULT_TTL)
-ttlcache = NaiveTTLDictDisk(filename='whatever', default_ttl=DEFAULT_TTL)
+ttlcache = NaiveTTLDictDisk(filename='.foo.bar', default_ttl=DEFAULT_TTL)
 
 INSTANCES = [ttldict, ttlcache]
 
@@ -101,9 +101,9 @@ class TestCase:
         sleep()
         assert [k for k in instance] == []
 
-        for k,v in zip(range(10), range(10)):
+        for k in range(10):
             # Keys must be str as values!
-            instance[str(k)] = v
+            instance[str(k)] = k
         
         assert len(instance) == 10
         
@@ -116,15 +116,15 @@ class TestCase:
     def test_values(self, instance):
         assert len(instance.values()) == 0
 
-        for k,v in zip(range(10), range(10)):
+        for k in range(10):
             # Keys must be str as values!
-            instance[str(k)] = v
+            instance[str(k)] = k
         
         assert len(instance) == 10
         assert len(instance.values()) == 10
         
-        for v1, v2 in enumerate(instance.values()):
-            assert v1 == v2
+        for v in instance.values():
+            assert v == instance[str(v)]
 
         sleep()
         assert len(instance) == 0
@@ -132,9 +132,9 @@ class TestCase:
     def test_items(self, instance):
         assert len(instance.items()) == 0
 
-        for k,v in zip(range(10), range(10)):
+        for k in range(10):
             # Keys must be str as values!
-            instance[str(k)] = v
+            instance[str(k)] = k
         
         assert len(instance) == 10
         assert len(instance.items()) == 10
