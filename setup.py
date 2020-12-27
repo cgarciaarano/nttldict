@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-# Note: To use the 'upload' functionality of this file, you must:
-#   $ pip install twine
 import os
+import re
 
 from setuptools import find_packages, setup
+
+# Get tag from env that matches lousy semver
+VERSION = os.getenv("VERSION", "local")
+m = re.search(r"([0-9]+\.){2}[0-9]+", VERSION)
+if m:
+    VERSION = m[0]
 
 # Package meta-data.
 NAME = "nttldict"
 DESCRIPTION = "Naive TTL dictionary, with optional on-disk persistence"
-VERSION = os.getenv("VERSION", f'{os.getenv("GIT_COMMIT","local")}')
 INSTALL_REQUIRES = []
 
 TESTS_REQUIRE = ["pytest"]
